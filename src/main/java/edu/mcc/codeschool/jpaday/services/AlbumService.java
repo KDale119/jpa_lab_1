@@ -32,8 +32,8 @@ public class AlbumService {
         request.setArtistId(artists.getArtistId());
         return ResponseEntity.ok(request);
     }
-    public Void deleteAlbum(Integer albumId){
-        Albums albums = albumsRepository.findById(albumId).get();
-        albumsRepository.delete(albums);
-    }
+//    public Void deleteAlbum(Integer albumId){
+//        Albums albums = albumsRepository.findById(albumId).get();
+//        albumsRepository.delete(albums);
+//    }
 }
