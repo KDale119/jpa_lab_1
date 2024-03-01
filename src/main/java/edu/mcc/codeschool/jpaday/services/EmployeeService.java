@@ -2,12 +2,15 @@ package edu.mcc.codeschool.jpaday.services;
 
 import edu.mcc.codeschool.jpaday.models.Employee;
 import edu.mcc.codeschool.jpaday.repos.EmployeeRepository;
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.sql.ClientInfoStatus;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeService {
@@ -26,16 +29,22 @@ public class EmployeeService {
         return ResponseEntity.ok(employeeRepository.findFirstByFirstName(firstName));
     }
 
-//    public ResponseEntity<Employee> findCountById(Integer employeeId){
-//        return ResponseEntity.ok(employeeRepository.countAllByEmployeeId(employeeId));
-//    }
+    public ResponseEntity<Integer> findEmployeeCount(){
+        return ResponseEntity.ok(employeeRepository.findEmployeeCount());
+    }
 
-// where reports to is not NULL
+    public ResponseEntity<Integer> employeesReportTo() {
+        return ResponseEntity.ok(employeeRepository.employeesReportTo());
+    }
 
-    //3
-//    public List<Employee> findDistinctTitle(String title) {
-//        return employeeRepository.findDistinctTitle(title);
-//    }
+    public ResponseEntity<List<String>> findDistinctTitles(){
+        return ResponseEntity.ok(employeeRepository.findDistinctTitles());
+    }
+
+    public ResponseEntity<Integer> countDistinctTitles(){
+        return ResponseEntity.ok(employeeRepository.countDistinctTitles());
+    }
+
 
     //5
     public List<Employee> findItStaff(String title){
@@ -45,10 +54,12 @@ public class EmployeeService {
     public ResponseEntity<Employee> findByTitleCityZip(String title, String city, String postalCode){
         return ResponseEntity.ok(employeeRepository.findEmployeeByTitleAndCityAndPostalCode(title, city, postalCode));
     }
-    //7- hire date not in entity
+
+
 
     //11
-//    public ResponseEntity<Employee> updateLastName(String lastName){
-//        return ResponseEntity.ok(employeeRepository.updateEmployeeByLastNameContainingIgnoreCase(lastName));
-//    }
+    public ResponseEntity<Employee> updateLastName(Integer employeeId, String lastName){
+        employeeRepository.updateLastName(lastName, employeeId);
+        return ResponseEntity.ok(employeeRepository.findById(employeeId).get());
+    }
 }

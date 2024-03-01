@@ -4,6 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+import java.sql.Date;
+
 @Entity(name="Employees")
 public class Employee {
     @Id
@@ -25,6 +27,28 @@ public class Employee {
     private String country;
     @Column(name="postalcode")
     private String postalCode;
+    @Column(name = "reportsto")
+    private Integer reportsTo;
+
+    @Column(name = "hiredate")
+    private Date hireDate;
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public Integer getReportsTo() {
+        return reportsTo;
+    }
+
+    public void setReportsTo(Integer reportsTo) {
+        this.reportsTo = reportsTo;
+    }
+
 
     public Integer getEmployeeId() {
         return employeeId;

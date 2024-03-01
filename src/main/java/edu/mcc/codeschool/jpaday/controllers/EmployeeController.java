@@ -5,6 +5,7 @@ import edu.mcc.codeschool.jpaday.services.EmployeeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,19 +29,25 @@ public class EmployeeController {
         return employeeService.findEmployeeByFirstName(firstName);
     }
 
-//    @GetMapping("/findCount")
-//    public ResponseEntity<Employee> findCount (Integer employeeId) {
-//        return employeeService.findCountById(employeeId);
-//    }
+    @GetMapping("/findCount") //1
+    public ResponseEntity<Integer> findCount () {
+        return employeeService.findEmployeeCount();
+    }
 
-// where reports to is not NULL
+    @GetMapping("/reportsTo") //2
+    public ResponseEntity<Integer> employeeReportsTo(){
+        return employeeService.employeesReportTo();
+    }
 
-    //3
-//    @GetMapping("/findJobTitles")
-//    public ResponseEntity<List<Employee>> findDistinctTitles(String title) {
-//        List<Employee> employees = employeeService.findDistinctTitle(title);
-//        return ResponseEntity.ok(employees);
-//    }
+    @GetMapping("/findDistinctTitle") //3
+    public ResponseEntity<List<String>> findDistinctTitles(){
+        return employeeService.findDistinctTitles();
+    }
+
+    @GetMapping("/countDistinctTitles")
+    public ResponseEntity<Integer> countDistinctTitles(){
+        return employeeService.countDistinctTitles();
+    }
 
 // 5
     @GetMapping("/{title}")
@@ -54,10 +61,10 @@ public class EmployeeController {
     public ResponseEntity<Employee> findTitleCityZip(@PathVariable String title, @PathVariable String city, @PathVariable String postalCode) {
         return employeeService.findByTitleCityZip(title, city, postalCode);
     }
-    //7- hire date not in entity???
-    //11
-//    @PutMapping("/{lastName}")
-//    public ResponseEntity<Employee> updateLastName(@PathVariable String lastName) {
-//        return employeeService.updateLastName(lastName);
-//    }
+
+
+    @PutMapping("/{employeeId}/{lastName}")
+    public ResponseEntity<Employee> updateLastName(@PathVariable Integer employeeId, @PathVariable String lastName) {
+        return employeeService.updateLastName(employeeId, lastName);
+    }
 }
